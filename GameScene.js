@@ -46,6 +46,7 @@ class GameScene extends Phaser.Scene {
     // Create the CJ sprite and set boundaries for it
 
     player = this.physics.add.sprite(512, 704, "Adam");
+    // player = this.add.sprite(this.world.centerX, this.world.centerY, "Adam");
     player.setCollideWorldBounds(true);
 
     // Checking wich tiles have the custom Tiled property "collides" set to 
@@ -134,6 +135,8 @@ class GameScene extends Phaser.Scene {
     //   frameRate: 6,
     //   repeat: -1
     // });
+    // this.cameras.main.setBounds(0,0);
+    // this.cameras.main.startfollow(player);
 
   }
 
@@ -150,83 +153,43 @@ class GameScene extends Phaser.Scene {
       t:  Phaser.Input.Keyboard.KeyCodes.T
   });
 
-    const rightArrow = cursors.right.isDown;
-    const leftArrow = cursors.left.isDown;
-    const upArrow = cursors.up.isDown;
-    const downArrow = cursors.down.isDown;
-    const space = cursors.space.isDown;
+    const rightArrow = cursors.right._justDown;
+    const leftArrow = cursors.left._justDown;
+    const upArrow = cursors.up._justDown;
+    const downArrow = cursors.down._justDown;
+    const space = cursors.space._justDown;
     const tArrow = keys.t.isDown;
 
     player.setVelocity(0);
 
-    // // Check for whether any of the arrow keys were pressed, move CJ
-    
-    // if (downArrow && rightArrow) {
-    //   moveCJdiagonalDR();
-    // } else if (upArrow && rightArrow) {
-    //   moveCJdiagonalUR();
-    // } else if (downArrow && leftArrow) {
-    //   moveCJdiagonalDL();
-    // } else if (upArrow && leftArrow) {
-    //   moveCJdiagonalUL();
-    // } else 
-      
-    
+    const speed = 80;
+    // // Check for whether any of the arrow keys were pressed, move CJ    
     if (rightArrow) {
       moveCJRight();
-    } 
-    // else {
-    //   player.anims.play('stop-right', true);
-    // }
-    
-    if (leftArrow) {
+    } else if (leftArrow) {
       moveCJLeft();
-    } 
-    // else {
-    //   player.anims.play('stop-left', true);
-    // }
-    
-    if (upArrow) {
+    } else if (upArrow) {
       moveCJUp();
-    } 
-    // else {
-    //   player.anims.play('stop-up', true);
-    // }
-    
-    if (downArrow) {
+    } else if (downArrow) {
       moveCJDown();
-    } 
-
-    // else {
-    //   player.anims.play('stop-down', true);
-    // }
-
-    if (player.velocity === 0) {
-      player.anims.play('stop-up', true);
-    }
+    } else {
+      player.anims.stop();
       
-    // // Helper functions to move CJ in 4 directions
-
-    // // Function created to ensure sprite stops when not pressing
-    // function stopCJ() {
-    //   player.anims.play("chill", true);
-    //   player.setVelocityX(0);
-    //   player.setVelocityY(0);
-    // }
+    }
 
     function moveCJRight() {
-      // player.flipX = false;
-      // player.setTexture("cj-stop");
-      player.setVelocityX(80);
+
+      player.setVelocityX(speed);
       player.setVelocityY(0);
       player.anims.play("right", true);
+      
+      if (cursors.right.JustUp) {
+        player.anims.play('stop-right', true)
+      }
     }
 
     function moveCJLeft() {
-      // In the image, CJ looks to the right so we flip the image
-      // player.flipX = true;
-      // player.setTexture("cj-stop");
-      player.setVelocityX(-80);
+      player.setVelocityX(-speed);
       player.setVelocityY(0);
       player.anims.play("left", true);
     }
@@ -235,7 +198,7 @@ class GameScene extends Phaser.Scene {
       // player.flipX = false;
       player.anims.play("up", true);
       player.setVelocityX(0);
-      player.setVelocityY(-80);
+      player.setVelocityY(-speed);
     }
 
     function moveCJDown() {
@@ -243,38 +206,11 @@ class GameScene extends Phaser.Scene {
       player.anims.play("down", true);
       // player.setTexture("cj-front");
       player.setVelocityX(0);
-      player.setVelocityY(80);
+      player.setVelocityY(speed);
     }
 
-    // function moveCJdiagonalDR() {
-    //   player.flipX = false;
-    //   player.anims.play("left", true);
-    //   // player.setTexture("cj-stop");
-    //   player.setVelocityX(100);
-    //   player.setVelocityY(100);
-    // }
 
-    // function moveCJdiagonalDL() {
-    //   player.flipX = true;
-    //   player.anims.play("left", true);
-    //   // player.setTexture("cj-stop");
-    //   player.setVelocityX(-100);
-    //   player.setVelocityY(100);
-    // }
-
-    // function moveCJdiagonalUR() {
-    //   player.flipX = false;
-    //   player.anims.play("left", true);
-    //   player.setVelocityX(100);
-    //   player.setVelocityY(-100);
-    // }
-
-    // function moveCJdiagonalUL() {
-    //   player.flipX = true;
-    //   player.anims.play("left", true);
-    //   player.setVelocityX(-100);
-    //   player.setVelocityY(-100);
-    // }
+    
 
     // if (tArrow) {
     //   player.anims.play("point", true);
