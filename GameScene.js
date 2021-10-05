@@ -42,12 +42,16 @@ class GameScene extends Phaser.Scene {
     const tileset7 = map.addTilesetImage('Locker4', 'locker');
     lockers = map.createStaticLayer('lockers', tileset7);
 
-    
+    this.cameras.main.setSize(480, 640);
+
     // Create the CJ sprite and set boundaries for it
 
     player = this.physics.add.sprite(512, 704, "Adam");
+    this.cameras.main.startFollow(player);
+    
+      // player.setCollideWorldBounds(true);
     // player = this.add.sprite(this.world.centerX, this.world.centerY, "Adam");
-    player.setCollideWorldBounds(true);
+
 
     // Checking wich tiles have the custom Tiled property "collides" set to 
     // true and giving them colliding properties in Phaser
