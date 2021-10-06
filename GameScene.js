@@ -1,4 +1,5 @@
 let player, lockers, mainFence, fenceLeft, fenceRight, walls, floor, rooms, floor2;
+let direction, moving;
 
 class GameScene extends Phaser.Scene {
   constructor() {
@@ -49,7 +50,7 @@ class GameScene extends Phaser.Scene {
     player = this.physics.add.sprite(512, 704, "Adam");
     this.cameras.main.startFollow(player);
     
-      // player.setCollideWorldBounds(true);
+    // player.setCollideWorldBounds(true);
     // player = this.add.sprite(this.world.centerX, this.world.centerY, "Adam");
 
 
@@ -165,20 +166,23 @@ class GameScene extends Phaser.Scene {
     const tArrow = keys.t.isDown;
 
     player.setVelocity(0);
-
+    
     const speed = 80;
     // // Check for whether any of the arrow keys were pressed, move CJ    
-    if (rightArrow) {
+      if (rightArrow) {
+      direction = 53;
       moveCJRight();
     } else if (leftArrow) {
       moveCJLeft();
+      direction = 65;
     } else if (upArrow) {
       moveCJUp();
+      direction = 30;
     } else if (downArrow) {
       moveCJDown();
+      direction = 42;
     } else {
-      player.anims.stop();
-      
+      player.setFrame(direction);
     }
 
     function moveCJRight() {
