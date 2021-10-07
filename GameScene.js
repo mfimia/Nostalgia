@@ -7,47 +7,23 @@ class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('wall-left', 'city-theme/Scene/1 Tiles/city1-wall-left.png')
-    this.load.image('wall-right', 'city-theme/Scene/1 Tiles/city1-wall-right.png')
-    this.load.spritesheet("CJ", "city-theme/pjs/CJ.png", {
-      frameWidth: 48,
-      frameHeight: 48,
-    });
     this.load.spritesheet('Adam', 'assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_16x16.png', {frameWidth: 16, frameHeight: 32});
-    this.load.tilemapTiledJSON('map', 'city-theme/city1-tilemap.json');
-    this.load.image('tile', 'city-theme/Scene/1 Tiles/IndustrialTile_02.png');
-    this.load.image('floor1', 'city-theme/Scene/1 Tiles/IndustrialTile_21.png');
-    this.load.image('floor2', 'city-theme/Scene/1 Tiles/IndustrialTile_46.png');
-    this.load.image('fence1', 'city-theme/Scene/3 Objects/Fence1.png');
-    this.load.image('fence2', 'city-theme/Scene/3 Objects/Fence2.png');
-    this.load.image('fence3', 'city-theme/Scene/3 Objects/Fence3.png');
-    this.load.image('locker', 'city-theme/Scene/3 Objects/Locker4.png');
-    this.load.image('wall', 'city-theme/Scene/1 Tiles/IndustrialTile_64.png');
+    // this.load.tilemapTiledJSON('map', 'city-theme/city1-tilemap.json');
+    this.load.image('serene-village-16x16', 'assets/Serene_Village_revamped_v1.9/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png')
+    this.load.tilemapTiledJSON('map', 'assets/Worlds/Prima.json')
   }
 
   create() {
     // Adding tile layers from Tiled
     const map = this.make.tilemap({ key: 'map' });
-    const tileset1 = map.addTilesetImage('IndustrialTile_21', 'floor1');
-    floor = map.createStaticLayer('floor', tileset1);
-    const tileset2 = map.addTilesetImage('IndustrialTile_64', 'wall');
-    walls = map.createStaticLayer('walls', tileset2);
-    const tileset3 = map.addTilesetImage('IndustrialTile_46', 'floor2');
-    floor2 = map.createStaticLayer('floor2', tileset3);
-    const tileset4 = map.addTilesetImage('Fence2', 'fence2');
-    mainFence = map.createStaticLayer('main-fence', tileset4);
-    const tileset5 = map.addTilesetImage('Fence1', 'fence1');
-    fenceLeft = map.createStaticLayer('fence-left', tileset5);
-    const tileset6 = map.addTilesetImage('Fence3', 'fence3');
-    fenceRight = map.createStaticLayer('fence-right', tileset6);
-    const tileset7 = map.addTilesetImage('Locker4', 'locker');
-    lockers = map.createStaticLayer('lockers', tileset7);
+    const tileset1 = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    floor = map.createStaticLayer('Basic geography', tileset1);
 
     this.cameras.main.setSize(480, 640);
 
     // Create the CJ sprite and set boundaries for it
 
-    player = this.physics.add.sprite(512, 704, "Adam");
+    player = this.physics.add.sprite(2700, 4060, "Adam");
     this.cameras.main.startFollow(player);
     
     // player.setCollideWorldBounds(true);
@@ -57,18 +33,18 @@ class GameScene extends Phaser.Scene {
     // Checking wich tiles have the custom Tiled property "collides" set to 
     // true and giving them colliding properties in Phaser
 
-    walls.setCollisionByProperty({ collides: true });
-    lockers.setCollisionByProperty({ collides: true });
-    fenceRight.setCollisionByProperty({ collides: true });
-    fenceLeft.setCollisionByProperty({ collides: true });
-    mainFence.setCollisionByProperty({ collides: true });
+    // walls.setCollisionByProperty({ collides: true });
+    // lockers.setCollisionByProperty({ collides: true });
+    // fenceRight.setCollisionByProperty({ collides: true });
+    // fenceLeft.setCollisionByProperty({ collides: true });
+    // mainFence.setCollisionByProperty({ collides: true });
 
     // Adding colliders
-    this.physics.add.collider(player, walls);
-    this.physics.add.collider(player, lockers);
-    this.physics.add.collider(player, fenceRight);
-    this.physics.add.collider(player, fenceLeft);
-    this.physics.add.collider(player, mainFence);
+    // this.physics.add.collider(player, walls);
+    // this.physics.add.collider(player, lockers);
+    // this.physics.add.collider(player, fenceRight);
+    // this.physics.add.collider(player, fenceLeft);
+    // this.physics.add.collider(player, mainFence);
     
     // Add animation functions
     this.anims.create({
