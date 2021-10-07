@@ -1,4 +1,4 @@
-let player, trees, floor, walls, test;
+let player, trees, floor, walls, test, houses;
 let direction, moving;
 let spawnX = 3355;
 let spawnY = 4707;
@@ -29,6 +29,8 @@ class GameScene extends Phaser.Scene {
     map.createStaticLayer('Light trees', lightTreesBot);
     const cityOneWalls = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     walls = map.createStaticLayer('walls', cityOneWalls);
+    const cityOneHouses = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    houses = map.createStaticLayer('houses', cityOneHouses);
 
     // const treesTest = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     // test = map.createStaticLayer('test', treesTest);
@@ -37,6 +39,7 @@ class GameScene extends Phaser.Scene {
     // Create the CJ sprite and set boundaries for it
 
     player = this.physics.add.sprite(spawnX, spawnY, "Adam");
+    player.setSize(16, 16);
     this.cameras.main.startFollow(player);
 
 
@@ -51,6 +54,7 @@ class GameScene extends Phaser.Scene {
 
     trees.setCollisionByProperty({ collides: true });
     walls.setCollisionByProperty({ collides: true });
+    houses.setCollisionByProperty({ collides: true });
     // lockers.setCollisionByProperty({ collides: true });
     // fenceRight.setCollisionByProperty({ collides: true });
     // fenceLeft.setCollisionByProperty({ collides: true });
@@ -59,6 +63,7 @@ class GameScene extends Phaser.Scene {
     // Adding colliders
     this.physics.add.collider(player, trees);
     this.physics.add.collider(player, walls);
+    this.physics.add.collider(player, houses);
     // this.physics.add.collider(player, lockers);
     // this.physics.add.collider(player, fenceRight);
     // this.physics.add.collider(player, fenceLeft);
