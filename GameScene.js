@@ -1,5 +1,7 @@
-let player, trees, floor, test;
+let player, trees, floor, walls, test;
 let direction, moving;
+let spawnX = 3355;
+let spawnY = 4707;
 
 class GameScene extends Phaser.Scene {
   constructor() {
@@ -25,13 +27,16 @@ class GameScene extends Phaser.Scene {
     map.createStaticLayer('Green trees', greenTreesBot);
     const lightTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     map.createStaticLayer('Light trees', lightTreesBot);
-    const treesTest = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    test = map.createStaticLayer('test', treesTest);
+    const cityOneWalls = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    walls = map.createStaticLayer('walls', cityOneWalls);
+
+    // const treesTest = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    // test = map.createStaticLayer('test', treesTest);
     this.cameras.main.setSize(480, 640);
 
     // Create the CJ sprite and set boundaries for it
 
-    player = this.physics.add.sprite(2715, 4060, "Adam");
+    player = this.physics.add.sprite(spawnX, spawnY, "Adam");
     this.cameras.main.startFollow(player);
 
 
@@ -44,14 +49,16 @@ class GameScene extends Phaser.Scene {
     // Checking wich tiles have the custom Tiled property "collides" set to 
     // true and giving them colliding properties in Phaser
 
-    test.setCollisionByProperty({ collides: true });
+    trees.setCollisionByProperty({ collides: true });
+    walls.setCollisionByProperty({ collides: true });
     // lockers.setCollisionByProperty({ collides: true });
     // fenceRight.setCollisionByProperty({ collides: true });
     // fenceLeft.setCollisionByProperty({ collides: true });
     // mainFence.setCollisionByProperty({ collides: true });
 
     // Adding colliders
-    this.physics.add.collider(player, test);
+    this.physics.add.collider(player, trees);
+    this.physics.add.collider(player, walls);
     // this.physics.add.collider(player, lockers);
     // this.physics.add.collider(player, fenceRight);
     // this.physics.add.collider(player, fenceLeft);
@@ -133,7 +140,7 @@ class GameScene extends Phaser.Scene {
   }
 
   update() {
-
+    // console.log(player.x, player.y)
     // Arrow keys that will move CJ in 4 directions and general game keys
     const cursors = this.input.keyboard.createCursorKeys();
 
