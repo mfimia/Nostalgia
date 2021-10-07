@@ -1,4 +1,4 @@
-let player, lockers, mainFence, fenceLeft, fenceRight, walls, floor, rooms, floor2;
+let player, trees, floor, test;
 let direction, moving;
 
 class GameScene extends Phaser.Scene {
@@ -14,33 +14,44 @@ class GameScene extends Phaser.Scene {
   }
 
   create() {
+    
     // Adding tile layers from Tiled
     const map = this.make.tilemap({ key: 'map' });
-    const tileset1 = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    floor = map.createStaticLayer('Basic geography', tileset1);
-
+    const groundFloor = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    floor = map.createStaticLayer('Basic geography', groundFloor);
+    const darkTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    trees = map.createStaticLayer('Dark trees', darkTreesBot);
+    const greenTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    map.createStaticLayer('Green trees', greenTreesBot);
+    const lightTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    map.createStaticLayer('Light trees', lightTreesBot);
+    const treesTest = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    test = map.createStaticLayer('test', treesTest);
     this.cameras.main.setSize(480, 640);
 
     // Create the CJ sprite and set boundaries for it
 
-    player = this.physics.add.sprite(2700, 4060, "Adam");
+    player = this.physics.add.sprite(2715, 4060, "Adam");
     this.cameras.main.startFollow(player);
+
+
+    // map.setCollision(trees);
     
     // player.setCollideWorldBounds(true);
     // player = this.add.sprite(this.world.centerX, this.world.centerY, "Adam");
 
-
+    
     // Checking wich tiles have the custom Tiled property "collides" set to 
     // true and giving them colliding properties in Phaser
 
-    // walls.setCollisionByProperty({ collides: true });
+    test.setCollisionByProperty({ collides: true });
     // lockers.setCollisionByProperty({ collides: true });
     // fenceRight.setCollisionByProperty({ collides: true });
     // fenceLeft.setCollisionByProperty({ collides: true });
     // mainFence.setCollisionByProperty({ collides: true });
 
     // Adding colliders
-    // this.physics.add.collider(player, walls);
+    this.physics.add.collider(player, test);
     // this.physics.add.collider(player, lockers);
     // this.physics.add.collider(player, fenceRight);
     // this.physics.add.collider(player, fenceLeft);
