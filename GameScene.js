@@ -21,14 +21,14 @@ class GameScene extends Phaser.Scene {
     const map = this.make.tilemap({ key: 'map' });
     const groundFloor = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     floor = map.createStaticLayer('Basic geography', groundFloor);
-    const darkTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    trees = map.createStaticLayer('Dark trees', darkTreesBot);
     const greenTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     map.createStaticLayer('Green trees', greenTreesBot);
     const lightTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     map.createStaticLayer('Light trees', lightTreesBot);
     const cityOneWalls = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     walls = map.createStaticLayer('walls', cityOneWalls);
+    const darkTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    trees = map.createStaticLayer('Dark trees', darkTreesBot);
     const cityOneHouses = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     houses = map.createStaticLayer('houses', cityOneHouses);
     const cityOneOutsideDeco = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
@@ -37,13 +37,20 @@ class GameScene extends Phaser.Scene {
     // const treesTest = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     // test = map.createStaticLayer('test', treesTest);
     this.cameras.main.setSize(480, 640);
-
+    // let xHeight = player.height;
     // Create the CJ sprite and set boundaries for it
-
+    // console.log(xHeight);
     player = this.physics.add.sprite(spawnX, spawnY, "Adam");
     player.setSize(16, 16);
     this.cameras.main.startFollow(player);
+    let height = player.displayHeight;
+    console.log(height);
+    let output = player.getTopLeft();
+    console.log(output);
 
+    // player.flipY = true;
+
+    // player.setDisplaySize(16, 16);
 
     // map.setCollision(trees);
     
@@ -170,7 +177,7 @@ class GameScene extends Phaser.Scene {
 
     player.setVelocity(0);
     
-    const speed = 80;
+    const speed = 180;
     // // Check for whether any of the arrow keys were pressed, move CJ    
       if (rightArrow) {
       direction = 53;
