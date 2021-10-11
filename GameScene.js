@@ -1,4 +1,4 @@
-let player, trees, floor, walls, test, houses, outsideDeco;
+let player, trees, floor, walls, test, houses, outsideDeco, floorDeco;
 let direction, moving;
 let spawnX = 3355;
 let spawnY = 4707;
@@ -21,12 +21,15 @@ class GameScene extends Phaser.Scene {
     const map = this.make.tilemap({ key: 'map' });
     const groundFloor = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     floor = map.createStaticLayer('Basic geography', groundFloor);
+    const cityOneWalls = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    walls = map.createStaticLayer('walls', cityOneWalls);
     const greenTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     map.createStaticLayer('Green trees', greenTreesBot);
     const lightTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     map.createStaticLayer('Light trees', lightTreesBot);
-    const cityOneWalls = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    walls = map.createStaticLayer('walls', cityOneWalls);
+    const cityOneFloorDeco = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
+    floorDeco = map.createStaticLayer('outside-floor', cityOneFloorDeco);
+    
     const darkTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     trees = map.createStaticLayer('Dark trees', darkTreesBot);
     const cityOneHouses = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
@@ -65,6 +68,7 @@ class GameScene extends Phaser.Scene {
     walls.setCollisionByProperty({ collides: true });
     houses.setCollisionByProperty({ collides: true });
     outsideDeco.setCollisionByProperty({ collides: true });
+    floorDeco.setCollisionByProperty({ collides: true });
     // lockers.setCollisionByProperty({ collides: true });
     // fenceRight.setCollisionByProperty({ collides: true });
     // fenceLeft.setCollisionByProperty({ collides: true });
@@ -75,6 +79,7 @@ class GameScene extends Phaser.Scene {
     this.physics.add.collider(player, walls);
     this.physics.add.collider(player, houses);
     this.physics.add.collider(player, outsideDeco);
+    this.physics.add.collider(player, floorDeco);
     // this.physics.add.collider(player, lockers);
     // this.physics.add.collider(player, fenceRight);
     // this.physics.add.collider(player, fenceLeft);
