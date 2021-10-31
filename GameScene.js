@@ -9,33 +9,63 @@ class GameScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.spritesheet('Adam', 'assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_16x16.png', {frameWidth: 16, frameHeight: 32});
+    this.load.spritesheet(
+      "Adam",
+      "assets/Modern_Interiors_Free_v2.2/Modern tiles_Free/Characters_free/Adam_16x16.png",
+      { frameWidth: 16, frameHeight: 32 }
+    );
     // this.load.tilemapTiledJSON('map', 'city-theme/city1-tilemap.json');
-    this.load.image('serene-village-16x16', 'assets/Serene_Village_revamped_v1.9/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png')
-    this.load.tilemapTiledJSON('map', 'assets/Worlds/Prima.json')
+    this.load.image(
+      "serene-village-16x16",
+      "assets/Serene_Village_revamped_v1.9/SERENE_VILLAGE_REVAMPED/Serene_Village_16x16.png"
+    );
+    this.load.tilemapTiledJSON("map", "assets/Worlds/Prima.json");
   }
 
   create() {
-    
     // Adding tile layers from Tiled
-    const map = this.make.tilemap({ key: 'map' });
-    const groundFloor = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    floor = map.createStaticLayer('Basic geography', groundFloor);
-    const cityOneWalls = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    walls = map.createStaticLayer('walls', cityOneWalls);
-    const greenTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    map.createStaticLayer('Green trees', greenTreesBot);
-    const lightTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    map.createStaticLayer('Light trees', lightTreesBot);
-    const cityOneFloorDeco = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    floorDeco = map.createStaticLayer('outside-floor', cityOneFloorDeco);
-    
-    const darkTreesBot = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    trees = map.createStaticLayer('Dark trees', darkTreesBot);
-    const cityOneHouses = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    houses = map.createStaticLayer('houses', cityOneHouses);
-    const cityOneOutsideDeco = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
-    outsideDeco = map.createStaticLayer('outside-deco', cityOneOutsideDeco);
+    const map = this.make.tilemap({ key: "map" });
+    const groundFloor = map.addTilesetImage(
+      "Serene_Village_16x16",
+      "serene-village-16x16"
+    );
+    floor = map.createStaticLayer("Basic geography", groundFloor);
+    const cityOneWalls = map.addTilesetImage(
+      "Serene_Village_16x16",
+      "serene-village-16x16"
+    );
+    walls = map.createStaticLayer("walls", cityOneWalls);
+    const greenTreesBot = map.addTilesetImage(
+      "Serene_Village_16x16",
+      "serene-village-16x16"
+    );
+    map.createStaticLayer("Green trees", greenTreesBot);
+    const lightTreesBot = map.addTilesetImage(
+      "Serene_Village_16x16",
+      "serene-village-16x16"
+    );
+    map.createStaticLayer("Light trees", lightTreesBot);
+    const cityOneFloorDeco = map.addTilesetImage(
+      "Serene_Village_16x16",
+      "serene-village-16x16"
+    );
+    floorDeco = map.createStaticLayer("outside-floor", cityOneFloorDeco);
+
+    const darkTreesBot = map.addTilesetImage(
+      "Serene_Village_16x16",
+      "serene-village-16x16"
+    );
+    trees = map.createStaticLayer("Dark trees", darkTreesBot);
+    const cityOneHouses = map.addTilesetImage(
+      "Serene_Village_16x16",
+      "serene-village-16x16"
+    );
+    houses = map.createStaticLayer("houses", cityOneHouses);
+    const cityOneOutsideDeco = map.addTilesetImage(
+      "Serene_Village_16x16",
+      "serene-village-16x16"
+    );
+    outsideDeco = map.createStaticLayer("outside-deco", cityOneOutsideDeco);
 
     // const treesTest = map.addTilesetImage('Serene_Village_16x16', 'serene-village-16x16');
     // test = map.createStaticLayer('test', treesTest);
@@ -56,12 +86,11 @@ class GameScene extends Phaser.Scene {
     // player.setDisplaySize(16, 16);
 
     // map.setCollision(trees);
-    
+
     // player.setCollideWorldBounds(true);
     // player = this.add.sprite(this.world.centerX, this.world.centerY, "Adam");
 
-    
-    // Checking wich tiles have the custom Tiled property "collides" set to 
+    // Checking wich tiles have the custom Tiled property "collides" set to
     // true and giving them colliding properties in Phaser
 
     trees.setCollisionByProperty({ collides: true });
@@ -84,69 +113,69 @@ class GameScene extends Phaser.Scene {
     // this.physics.add.collider(player, fenceRight);
     // this.physics.add.collider(player, fenceLeft);
     // this.physics.add.collider(player, mainFence);
-    
+
     // Add animation functions
     this.anims.create({
       key: "right",
       frames: this.anims.generateFrameNumbers("Adam", { start: 48, end: 53 }),
       frameRate: 8,
-      repeat: -1
+      repeat: -1,
     });
 
     this.anims.create({
       key: "left",
       frames: this.anims.generateFrameNumbers("Adam", { start: 60, end: 65 }),
       frameRate: 8,
-      repeat: -1
+      repeat: -1,
     });
 
     this.anims.create({
       key: "up",
-      frames: this.anims.generateFrameNumbers('Adam', {start: 54, end: 59}),
+      frames: this.anims.generateFrameNumbers("Adam", { start: 54, end: 59 }),
       frameRate: 8,
-      repeat: -1
+      repeat: -1,
     });
 
     this.anims.create({
       key: "down",
       frames: this.anims.generateFrameNumbers("Adam", { start: 66, end: 71 }),
       frameRate: 8,
-      repeat: -1
+      repeat: -1,
     });
 
     this.anims.create({
       key: "chill",
       frames: this.anims.generateFrameNumbers("Adam", { start: 144, end: 152 }),
       frameRate: 1,
-      repeat: -1
+      repeat: -1,
     });
 
     this.anims.create({
       key: "stop-up",
-      frames: this.anims.generateFrameNumbers('Adam', {start: 30, end: 35}),
+      frames: this.anims.generateFrameNumbers("Adam", { start: 30, end: 35 }),
       frameRate: 2,
-      repeat: -1
+      repeat: -1,
     });
 
     this.anims.create({
       key: "stop-down",
-      frames: this.anims.generateFrameNumbers('Adam', {start: 42, end: 47}),
+      frames: this.anims.generateFrameNumbers("Adam", { start: 42, end: 47 }),
       frameRate: 2,
-      repeat: -1
+      repeat: -1,
     });
 
     this.anims.create({
       key: "stop-left",
-      frames: this.anims.generateFrameNumbers('Adam', {start: 36, end: 41}),
+      frames: this.anims.generateFrameNumbers("Adam", { start: 36, end: 41 }),
       frameRate: 2,
-      repeat: -1
+      repeat: -1,
     });
 
     this.anims.create({
       key: "stop-right",
-      frames: this.anims.generateFrameNumbers('Adam', {start: 24, end: 29}),
+      frames: this.anims.generateFrameNumbers("Adam", { start: 24, end: 29 }),
       frameRate: 2,
-      repeat: -1
+      repeat: -1,
     });
 
     // this.anims.create({
@@ -157,7 +186,6 @@ class GameScene extends Phaser.Scene {
     // });
     // this.cameras.main.setBounds(0,0);
     // this.cameras.main.startfollow(player);
-
   }
 
   update() {
@@ -166,12 +194,12 @@ class GameScene extends Phaser.Scene {
     const cursors = this.input.keyboard.createCursorKeys();
 
     const keys = this.input.keyboard.addKeys({
-      a:  Phaser.Input.Keyboard.KeyCodes.A,
-      s:  Phaser.Input.Keyboard.KeyCodes.S,
-      d:  Phaser.Input.Keyboard.KeyCodes.D,
-      w:  Phaser.Input.Keyboard.KeyCodes.W,
-      t:  Phaser.Input.Keyboard.KeyCodes.T
-  });
+      a: Phaser.Input.Keyboard.KeyCodes.A,
+      s: Phaser.Input.Keyboard.KeyCodes.S,
+      d: Phaser.Input.Keyboard.KeyCodes.D,
+      w: Phaser.Input.Keyboard.KeyCodes.W,
+      t: Phaser.Input.Keyboard.KeyCodes.T,
+    });
 
     const rightArrow = cursors.right._justDown;
     const leftArrow = cursors.left._justDown;
@@ -181,10 +209,10 @@ class GameScene extends Phaser.Scene {
     const tArrow = keys.t.isDown;
 
     player.setVelocity(0);
-    
-    const speed = 180;
-    // // Check for whether any of the arrow keys were pressed, move CJ    
-      if (rightArrow) {
+
+    const speed = 80;
+    // // Check for whether any of the arrow keys were pressed, move CJ
+    if (rightArrow) {
       direction = 53;
       moveCJRight();
     } else if (leftArrow) {
@@ -201,13 +229,12 @@ class GameScene extends Phaser.Scene {
     }
 
     function moveCJRight() {
-
       player.setVelocityX(speed);
       player.setVelocityY(0);
       player.anims.play("right", true);
-      
+
       if (cursors.right.JustUp) {
-        player.anims.play('stop-right', true)
+        player.anims.play("stop-right", true);
       }
     }
 
@@ -232,9 +259,6 @@ class GameScene extends Phaser.Scene {
       player.setVelocityY(speed);
     }
 
-
-    
-
     // if (tArrow) {
     //   player.anims.play("point", true);
     // }
@@ -243,7 +267,6 @@ class GameScene extends Phaser.Scene {
     if (space) {
       this.endGame();
     }
-    
   }
 
   // A type of function that ends current Game and transition to End Scene
